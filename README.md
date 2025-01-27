@@ -8,11 +8,6 @@ A Python-based WhatsApp bot that sends random Hadiths using the Twilio API. The 
 - [Technologies Used](#technologies-used)
 - [Directory Structure](#directory-structure)
 - [Setup Instructions](#setup-instructions)
-- [Flask Application](#flask-application)
-- [Terraform Configuration](#terraform-configuration)
-- [Twilio Configuration](#twilio-configuration)
-- [Additional Notes](#additional-notes)
-- [Next Steps](#next-steps)
 
 ## Project Overview
 
@@ -32,7 +27,7 @@ This project allows users to send a message to a WhatsApp number, and the bot re
 whatsapp-autobot/
 ├── myscript.py                    # Python script for the bot logic and handling WhatsApp messages
 ├── terraform/                     # Terraform directory for provisioning infrastructure
-│   ├── auto_var.auto.tfvars        # Variable values for Terraform (e.g., sensitive data)
+│   ├── auto_var.auto.tfvars        # Variable values for Terraform (e.g.,vpc_cidr_block )
 │   ├── inventory.ini              # Inventory for contain ip of ubuntu 
 │   ├── main.tf                    # Main Terraform configuration for provisioning EC2
 │   ├── modules/                   # Custom Terraform modules
@@ -47,10 +42,7 @@ whatsapp-autobot/
 │   │       └── variables.tf       # VPC module variables
 │   ├── outputs.tf                 # Terraform outputs file
 │   ├── providers.tf               # Provider configurations (e.g., AWS provider)
-│   ├── terraform.tfstate          # Terraform state file
-│   ├── terraform.tfstate.backup   # Backup of the Terraform state
 │   └── variables.tf               # Global variables for Terraform
-├── requirements.txt               # Python dependencies for the bot
 └── README.md                      # Project documentation
  ```
 ## Setup Instructions
@@ -61,10 +53,15 @@ whatsapp-autobot/
     cd whatsapp-autobot
     ```
 
+
 2. **Configure Twilio:**
-    - Create an account on Twilio and get your **Account SID** and **Auth Token**.
-    - Set up the [Twilio WhatsApp Sandbox](https://www.twilio.com/docs/whatsapp/quickstart/python) and configure the sandbox settings.
-    - Configure the Twilio webhook URL to your server's endpoint: `http://<your-server-ip>:8080/`.
+    - Create an account on [Twilio](https://www.twilio.com).
+    - Navigate to the **Twilio Console** and go to **Messaging** > **Try it Out** > **Send a WhatsApp message**.
+    - Send a message from WhatsApp to `+1 415 523 8886` with the code `join himself-bend` to join the sandbox.
+    - After joining, go to **Sandbox Settings** in the Twilio Console.
+    - Under **Sandbox settings**, configure the webhook URL to your server's endpoint: `http://<your-server-ip>:8080/`.
+
+    > **Note:** Replace `<your-server-ip>` with your actual server IP address.
 
 3. **Deploy the infrastructure using Terraform:**
     - Ensure you have [Terraform](https://www.terraform.io/downloads.html) installed.
@@ -81,30 +78,10 @@ whatsapp-autobot/
 4. **Access the EC2 instance:**
     After Terraform finishes provisioning, SSH into the EC2 instance:
     ```bash
-    ssh -i <your-ec2-key-pair>.pem ec2-user@<your-ec2-public-ip>
+    ssh -i <your-ec2-key-pair>.pem ubuntu@<your-ec2-public-ip>
     ```
 
-5. **Set up the environment on the EC2 instance:**
-    On your EC2 instance, run the following **user data script** to configure the necessary environment:
-
-    ```bash
-    #!/bin/bash
-
-    # Move to /tmp directory
-    cd /tmp
-
-    # Update the package manager
-    sudo apt update -y
-    sudo apt upgrade -y
-
-    # Install the SSM Agent
-    curl "https://github.com/aws/amazon-ssm-agent/releases/download/v3.0.611.0/amazon-ssm-agent-3.0.611.0-1.x86_64.deb" -o amazon-ssm-agent.deb
-    sudo dpkg -i amazon-ssm-agent.deb
-    sudo systemctl enable amazon-ssm-agent
-    sudo systemctl start amazon-ssm-agent
-    ```
-
-6. **Install required Python packages:**
+5. **Install required Python packages:**
     After setting up the instance, run the following commands to install Python dependencies and set up your environment:
 
     ```bash
@@ -127,10 +104,10 @@ whatsapp-autobot/
     python3 myscript.py
     ```
 
-7. **Run the Flask application:**
-    After the environment setup, the bot should start running automatically in the background. You can verify that the application is working by visiting your EC2 instance’s public IP in a browser, or by sending a WhatsApp message to the Twilio sandbox number.
+6. **Run the Flask application:**
+    After the environment setup, the bot should start running. You can verify that the application is working by sending a WhatsApp message to the Twilio sandbox number.
 
-8. **Verify the bot is working:**
+7. **Verify the bot is working:**
     - Send a message saying "اخبرني حديث" to the Twilio WhatsApp sandbox number.
     - You should receive a random Hadith in response.
 
