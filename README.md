@@ -52,6 +52,7 @@ whatsapp-autobot/
 │   └── variables.tf               # Global variables for Terraform
 ├── requirements.txt               # Python dependencies for the bot
 └── README.md                      # Project documentation
+ ```
 ## Setup Instructions
 
 1. **Clone the repository:**
