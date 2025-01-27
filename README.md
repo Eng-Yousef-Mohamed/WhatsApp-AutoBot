@@ -57,9 +57,9 @@ whatsapp-autobot/
 2. **Configure Twilio:**
     - Create an account on [Twilio](https://www.twilio.com).
     - Navigate to the **Twilio Console** and go to **Messaging** > **Try it Out** > **Send a WhatsApp message**.
-    - Send a message from WhatsApp to `+1 415 523 8886` with the code `join himself-bend` to join the sandbox.
+    - Send a message from WhatsApp to with the code `join himself-bend` to join the sandbox.
     - After joining, go to **Sandbox Settings** in the Twilio Console.
-    - Under **Sandbox settings**, configure the webhook URL to your server's endpoint: `http://<your-server-ip>:8080/`.
+    - Under **Sandbox Configuration**, configure the webhook URL to your server's endpoint: `http://<your-server-ip>:8080/`.
 
     > **Note:** Replace `<your-server-ip>` with your actual server IP address.
 
