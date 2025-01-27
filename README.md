@@ -106,7 +106,7 @@ whatsapp-autobot/
 
 6. **Run the Flask application:**
     After the environment setup, the bot should start running. You can verify that the application is working by sending a WhatsApp message to the Twilio sandbox number.
-  - You should receive a random Hadith in response, like this:  
-    ![Example Response](whats_bot.jpg)
+ - You should receive a random Hadith in response, like this:  
+   <img src="whats_bot.jpg" width="300" height="auto" />
 
 
